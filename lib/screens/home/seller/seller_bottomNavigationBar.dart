@@ -35,6 +35,9 @@ class _SellerbottomNavigationBarState extends State<SellerBottomNavigationBar> {
         onTap: (int index) {
           setState(() {
             _currentIndex = index;
+            if (_currentIndex == 2) {
+              Navigator.of(context).pushNamed('chatListPage');
+            }
           });
         },
         items: <BottomNavigationBarItem>[

@@ -49,7 +49,20 @@ class _PostPageState extends State<PostPage> {
         padding: EdgeInsets.symmetric(vertical: 10.0),
         child: Column(
           children: [
-          Container(
+          _headerPost(index),
+          InkWell(
+            child: _imageGrid(index),
+            onTap: () => Navigator.of(context).pushNamed('detailPostPage'),
+            ),
+          _footerPost()
+        ]),
+      );
+      }
+    );
+  }
+
+  Widget _headerPost(int index) {
+    return Container(
             margin: EdgeInsets.only(bottom: 10.0),
             child: Row(
               children: [
@@ -94,18 +107,32 @@ class _PostPageState extends State<PostPage> {
                 )
               ],
             ),
-          ),
-          Container(
+          );
+  }
+
+  Widget _imageGrid(int index) {
+    return Container(
           height: MediaQuery.of(context).size.height * 0.45,
           color: Colors.red,
           child: Row(
             children: [
-              Container(
+              _imageLarge(index),
+              _imagesSmall(index),
+            ],
+          )
+          );
+  }
+
+    Widget _imageLarge(int index) {
+    return Container(
                 width: MediaQuery.of(context).size.width * 0.65,
                 child: _pictureLarge('$index 0'),
                 color: Colors.black,
-              ),
-              Column(
+              );
+  }
+
+  Widget _imagesSmall(int index) {
+    return Column(
                 children: [
                   Flexible(
                     child: Container(
@@ -129,11 +156,11 @@ class _PostPageState extends State<PostPage> {
                     ),
                   ),
                 ],
-              )
-            ],
-          )
-          ),
-          Container(
+              );
+  }
+
+  Widget _footerPost() {
+    return Container(
             margin: EdgeInsets.symmetric(horizontal: 10.0),
             child: Column(
               children: [
@@ -152,11 +179,7 @@ class _PostPageState extends State<PostPage> {
                 _textInfoPost('Precio puja:', '\$ 4.600'),
               ],
             ),
-          ),
-        ]),
-      );
-      }
-    );
+          );
   }
 
   Widget _textInfoPost(String principalText, String secundaryText) {

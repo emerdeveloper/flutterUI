@@ -1,9 +1,12 @@
-import 'package:ChatRoom/models/ui/Category.dart';
+import 'package:ChatRoom/screens/home/buyer/buyer_categories.dart';
+import 'package:ChatRoom/screens/home/seller/seller_categories.dart';
+import 'package:flutter/material.dart';
+
 import 'package:ChatRoom/models/ui/Contact.dart';
-import 'package:ChatRoom/screens/home/buyer_bottomNavigationBar.dart';
+import 'package:ChatRoom/screens/home/buyer/buyer_bottomNavigationBar.dart';
+import 'package:ChatRoom/screens/home/seller/seller_bottomNavigationBar.dart';
 import 'package:ChatRoom/widgets/custom_text.dart';
 import 'package:ChatRoom/widgets/pictures_widget.dart';
-import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -13,15 +16,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<Category> categories = [
-    Category("assets/images/fruta.png", "Frutas", Colors.purple[50]),
-    Category("assets/images/verdura.png", "Verduras", Colors.deepOrange[50]),
-    Category("assets/images/dulce.png", "Dulces", Colors.amber[50]),
-    Category("assets/images/bebida.png", "Bebidas", Colors.red[50]),
-    Category("assets/images/farmacia.png", "Farmacia", Colors.blue[50]),
-    Category("assets/images/veterinaria.png", "Veterinaria", Colors.green[50]),
-    Category("assets/images/currier.png", "Courier", Colors.pink[50]),
-  ];
 
   final List<Contact> contacts = [
     Contact("assets/images/veterinaria.png", "Veterinarios", "Profesional que te dará un concepto del estado de salud de tus bovinos", Colors.purple[50]),
@@ -33,12 +27,14 @@ class _HomePageState extends State<HomePage> {
     Contact("assets/images/bebida.png", "Vendedor", "Crea una publicación de venta", Colors.deepOrange[50]),
   ];
 
+  bool isBuyer = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBar(),
       body: _body(),
-      bottomNavigationBar: BuyerBottomNavigationBar(),
+      bottomNavigationBar: !isBuyer ? BuyerBottomNavigationBar() : SellerBottomNavigationBar(),
     );
   }
 
@@ -96,7 +92,7 @@ class _HomePageState extends State<HomePage> {
               child: _locationSection(),
             ),
             SliverToBoxAdapter(
-              child: _categoriesSection(),
+              child: !isBuyer ? CategoriesBuyer() : CategoriesSeller(),
             ),
             SliverToBoxAdapter(
               child: _contactsHeader(),
@@ -134,42 +130,6 @@ class _HomePageState extends State<HomePage> {
               size: 24.0,
             ),
           ),
-        ],
-      ),
-    );
-  }
-
-  Widget _categoriesSection() {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-      width: MediaQuery.of(context).size.width * 0.9,
-      child: Wrap(
-        children: [
-          for (var category in categories)
-            Container(
-                width: 90.0,
-                padding: EdgeInsets.all(8),
-                child: Column(
-                  children: [
-                    InkWell(
-                      child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8.0),
-                              color: category.colorcard,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  offset: Offset(0.0, 0.5),
-                                  spreadRadius: 0.5,
-                                  blurRadius: 2.0,
-                                )
-                              ]),
-                          child: Image.asset(category.path)),
-                          onTap: () => Navigator.of(context).pushNamed('postPage'),
-                    ),
-                    Text(category.title, style: TextStyle(fontSize: 18.0))
-                  ],
-                ))
         ],
       ),
     );
@@ -246,7 +206,7 @@ class _HomePageState extends State<HomePage> {
 
   void _changeProfile(BuildContext context) {
     showModalBottomSheet(
-      context: context, 
+      context: context,
       builder: (BuildContext context) {
         return Container(
           height: MediaQuery.of(context).size.height * 0.6,
@@ -264,7 +224,13 @@ class _HomePageState extends State<HomePage> {
               Column(
                 children: [
                   for (int i = 0; i < profiles.length; i++ )
-                  _contactItem(profiles[i], 55.0, WidgetUtils.dividerItem(context, 5.0, 8.0), (i == profiles.length-1))
+                  Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      child: _contactItem(profiles[i], 55.0, WidgetUtils.dividerItem(context, 5.0, 8.0), (i == profiles.length-1)),
+                      onTap: () => _selecteProfile(i),
+                      ),
+                  )
                 ],
               )
             ],
@@ -274,5 +240,15 @@ class _HomePageState extends State<HomePage> {
       );
   }
 
+  void _selecteProfile(int index) {
+    if ((index == 0 && isBuyer) || (index == 1 && !isBuyer)) {
+      setState(() {
+        Navigator.pop(context);
+        isBuyer = !isBuyer;
+      });
+    } else {
+
+    }
+  }
    
 }

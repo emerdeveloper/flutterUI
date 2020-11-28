@@ -20,6 +20,9 @@ class _ChatListPageState extends State<ChatListPage> {
 
   AppBar _appBar() {
     return AppBar(
+      brightness: Brightness.light,
+      backgroundColor: Colors.white,
+      elevation: 1,
       title: Text('Lista de chats'),
       centerTitle: true,
       actions: [

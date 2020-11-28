@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       title: 'Chat List APP',
       theme: AppTheme().theme,
       //home: ChatListPage()
-      initialRoute: 'homePage',
+      initialRoute: '/',
       routes: getAplicationRoutes(),
     );
   }
