@@ -10,7 +10,7 @@ class SlideDots extends StatelessWidget {
     return AnimatedContainer(
       duration: Duration(milliseconds: 150),
       curve: Curves.fastOutSlowIn,
-      margin: const EdgeInsets.symmetric(horizontal: 10),
+      margin: EdgeInsets.symmetric(horizontal: 7.0, vertical: (isActive ? 0 : 8)),
       height: isActive ? 12 : 8,
       width: isActive ? 12 : 8,
       decoration: BoxDecoration(

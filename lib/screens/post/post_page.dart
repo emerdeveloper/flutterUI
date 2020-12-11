@@ -49,7 +49,7 @@ class _PostPageState extends State<PostPage> {
         padding: EdgeInsets.symmetric(vertical: 10.0),
         child: Column(
           children: [
-          _headerPost(index),
+          WidgetUtils.headerPost(index),
           InkWell(
             child: _imageGrid(index),
             onTap: () => Navigator.of(context).pushNamed('detailPostPage'),
@@ -61,59 +61,10 @@ class _PostPageState extends State<PostPage> {
     );
   }
 
-  Widget _headerPost(int index) {
-    return Container(
-            margin: EdgeInsets.only(bottom: 10.0),
-            child: Row(
-              children: [
-                Container(
-                    width: 55,
-                    height: 55,
-                    margin: EdgeInsets.symmetric(horizontal: 10.0),
-                    child: WidgetUtils.pictureProfileRounded(
-                        'https://picsum.photos/300/300?random=$index')),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('Rogelio Rodriguez',
-                              style: TextStyle(
-                                  fontSize: 20.0, fontWeight: FontWeight.w800, height: 1.0)),
-                        Container(
-                          margin: EdgeInsets.only(top: 2.0, left: 5.0),
-                          child: CircleAvatar(
-                            backgroundColor: Colors.blue[700],
-                            radius: 7.0,
-                            child: Icon(
-                              Icons.star,
-                              size: 9.0,
-                              color: Colors.white,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    Text('Planeta Rica, Córdoba',
-                        style: TextStyle(
-                          height: 1.0,
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.w500,
-                        ))
-                  ],
-                )
-              ],
-            ),
-          );
-  }
 
   Widget _imageGrid(int index) {
     return Container(
-          height: MediaQuery.of(context).size.height * 0.45,
-          color: Colors.red,
+          height: MediaQuery.of(context).size.height * 0.40,
           child: Row(
             children: [
               _imageLarge(index),
@@ -125,10 +76,9 @@ class _PostPageState extends State<PostPage> {
 
     Widget _imageLarge(int index) {
     return Container(
-                width: MediaQuery.of(context).size.width * 0.65,
-                child: _pictureLarge('$index 0'),
-                color: Colors.black,
-              );
+      width: MediaQuery.of(context).size.width * 0.65,
+      child: _pictureLarge('$index 0'),
+    );
   }
 
   Widget _imagesSmall(int index) {
@@ -138,21 +88,18 @@ class _PostPageState extends State<PostPage> {
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.35,
                       child: _picture('${index+1} 0'),
-                      color: Colors.green,
                     ),
                   ),
                   Flexible(
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.35,
                       child: _picture('${index+2} 0'),
-                      color: Colors.white,
                     ),
                   ),
                   Flexible(
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.35,
                       child: _picture('${index+3} 0'),
-                      color: Colors.green,
                     ),
                   ),
                 ],
@@ -171,28 +118,18 @@ class _PostPageState extends State<PostPage> {
                     IconButton(icon: Icon(FontAwesomeIcons.heart), onPressed: (){}),
                   ],
                 ),
-                _textInfoPost('Lote:', '00040'),
-                _textInfoPost('Cantidad:', '10'),
-                _textInfoPost('Peso total:', '1.000 kg'),
+                WidgetUtils.textInfoPost('Lote:', '00040'),
+                WidgetUtils.textInfoPost('Cantidad:', '10'),
+                WidgetUtils.textInfoPost('Peso total:', '1.000 kg'),
                 WidgetUtils.dividerItem(context, 8.0, 5.0),
-                _textInfoPost('Precio base:', '\$ 4.600'),
-                _textInfoPost('Precio puja:', '\$ 4.600'),
+                WidgetUtils.textInfoPost('Precio base:', '\$ 4.600'),
+                WidgetUtils.textInfoPost('Precio puja:', '\$ 4.600'),
               ],
             ),
           );
   }
 
-  Widget _textInfoPost(String principalText, String secundaryText) {
-    return Row(
-        children: [
-          Flexible(
-            fit: FlexFit.tight,
-            child: WidgetUtils.customTextSubtitle(principalText)
-            ),
-          WidgetUtils.customTextSecundary(secundaryText)
-        ],
-      );
-  }
+  
 
   Widget _picture(String id) {
     return FadeInImage(
@@ -206,7 +143,7 @@ class _PostPageState extends State<PostPage> {
     return FadeInImage(
           fit: BoxFit.cover,
           placeholder: AssetImage('assets/loading.gif'),
-          image: NetworkImage('https://picsum.photos/300/500?random=$id')
+          image: NetworkImage('https://picsum.photos/300/450?random=$id')
           );
   }
 }

@@ -75,4 +75,65 @@ class WidgetUtils {
             );
   }   
 
+  static Widget headerPost(int index) {
+    return Container(
+            margin: EdgeInsets.only(bottom: 10.0),
+            child: Row(
+              children: [
+                Container(
+                    width: 55,
+                    height: 55,
+                    margin: EdgeInsets.symmetric(horizontal: 10.0),
+                    child: WidgetUtils.pictureProfileRounded(
+                        'https://picsum.photos/300/300?random=$index')),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Rogelio Rodriguez',
+                              style: TextStyle(
+                                  fontSize: 20.0, fontWeight: FontWeight.w800, height: 1.0)),
+                        Container(
+                          margin: EdgeInsets.only(top: 2.0, left: 5.0),
+                          child: CircleAvatar(
+                            backgroundColor: Colors.blue[700],
+                            radius: 7.0,
+                            child: Icon(
+                              Icons.star,
+                              size: 9.0,
+                              color: Colors.white,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    Text('Planeta Rica, Córdoba',
+                        style: TextStyle(
+                          height: 1.0,
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.w500,
+                        ))
+                  ],
+                )
+              ],
+            ),
+          );
+  }
+
+  static Widget textInfoPost(String principalText, String secundaryText) {
+    return Row(
+        children: [
+          Flexible(
+            fit: FlexFit.tight,
+            child: WidgetUtils.customTextSubtitle(principalText)
+            ),
+          WidgetUtils.customTextSecundary(secundaryText)
+        ],
+      );
+  }
+
 }
